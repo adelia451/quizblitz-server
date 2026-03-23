@@ -9,7 +9,12 @@ const PORT = 3000
 app.use(cors())
 app.use(express.json())
 
-// Test route
+// In-memory scores store (replaced by MongoDB in Week 10)
+let scores = []
+
+// ROUTES ----------------------
+
+// GET / Test route
 app.get('/', (req, res) => {
   res.json({ message: 'QuizBlitz server is running' })
 })
@@ -17,11 +22,6 @@ app.get('/', (req, res) => {
 // GET /api/questions — returns all questions
 app.get('/api/questions', (req, res) => {
   res.json(questions)
-})
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`)
 })
 
 // GET /api/questions/random — returns 10 shuffled questions
@@ -35,10 +35,6 @@ app.get('/api/questions/random', (req, res) => {
 
   res.json(shuffled.slice(0, 10))
 })
-
-// MILESTONE 4
-// In-memory scores store (replaced by MongoDB in Week 10)
-let scores = []
 
 // POST /api/scores — submit a new score
 app.post('/api/scores', (req, res) => {
@@ -67,3 +63,15 @@ app.get('/api/scores', (req, res) => {
   const sorted = [...scores].sort((a, b) => b.score - a.score)
   res.json(sorted)
 })
+
+// START ----------------------
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`)
+})
+
+
+
+
+
