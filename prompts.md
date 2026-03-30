@@ -23,3 +23,19 @@ No AI used.
 
 ### Milestone 5 — Test the Complete API
 No AI used.
+
+**Phase 4**
+**Week 10**
+**Class 1**
+
+### Milestone 1 — Create a MongoDB Atlas Cluster
+No AI used.
+
+### Milestone 2 — Connect Mongoose to Atlas
+I'm supposed to `npm run dev` and get the response 
+
+```
+Connected to MongoDB
+Server running at http://localhost:3000
+```
+but I am getting and `ECONNREFUSED`. How do I fix this? (pasted error message)
