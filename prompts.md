@@ -43,3 +43,6 @@ but I am getting and `ECONNREFUSED`. How do I fix this? (pasted error message)
 
 ### Milestone 3 — Create the Score Model
 No AI used.
+
+### Milestone 4 — Replace the In-Memory Array with MongoDB
+No AI used.
