@@ -32,6 +32,7 @@ No AI used.
 No AI used.
 
 ### Milestone 2 — Connect Mongoose to Atlas
+**Prompt**
 I'm supposed to `npm run dev` and get the response 
 
 ```
@@ -39,3 +40,6 @@ Connected to MongoDB
 Server running at http://localhost:3000
 ```
 but I am getting and `ECONNREFUSED`. How do I fix this? (pasted error message)
+
+### Milestone 3 — Create the Score Model
+No AI used.
