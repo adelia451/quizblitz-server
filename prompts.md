@@ -65,6 +65,10 @@ No AI used.
 No AI used. 
 
 ### Milestone 3 — Login Route
+No AI used.
+
 ### Milestone 4 — verifyToken Middleware
+No AI used.
+
 ### Milestone 5 — Protect POST /api/scores
 

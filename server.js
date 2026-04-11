@@ -8,6 +8,7 @@ const Score = require('./models/Score')
 const User = require('./models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const verifyToken = require('./middleware/verifyToken')
 
 const app = express()
 const PORT = 3000
