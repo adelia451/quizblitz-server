@@ -57,5 +57,14 @@ I switched from `mongodb+srv://` to a standard MongoDB connection string to avoi
 **Phase 4**
 **Week 10**
 **Class 2**
+
 ### Milestone 1 — Install Packages and Create the User Model
 No AI used.
+
+### Milestone 2 — Register Route
+No AI used. 
+
+### Milestone 3 — Login Route
+### Milestone 4 — verifyToken Middleware
+### Milestone 5 — Protect POST /api/scores
+
