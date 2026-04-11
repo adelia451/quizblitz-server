@@ -53,3 +53,9 @@ Why am I getting MongoDB connection failed: `querySrv ECONNREFUSED _mongodb._tcp
 
 **What I used**
 I switched from `mongodb+srv://` to a standard MongoDB connection string to avoid a DNS/SRV issue. 
+
+**Phase 4**
+**Week 10**
+**Class 2**
+### Milestone 1 — Install Packages and Create the User Model
+No AI used.
