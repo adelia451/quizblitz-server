@@ -41,20 +41,20 @@ app.get('/api/questions/random', (req, res) => {
   res.json(shuffled.slice(0, 10))
 })
 
-// POST /api/scores — MILESTONE 4
-app.post('/api/scores', async (req, res) => {
-  const { playerName, score, totalQuestions } = req.body
+// POST /api/scores — MILESTONE 5
+app.post('/api/scores', verifyToken, async (req, res) => {
+  const { score, totalQuestions } = req.body
 
-  if (!playerName || score === undefined || !totalQuestions) {
-    return res.status(400).json({ error: 'playerName, score, and totalQuestions are required' })
+  if (score === undefined || !totalQuestions) {
+    return res.status(400).json({ error: 'score and totalQuestions are required' })
   }
 
   try {
     const newScore = await Score.create({
-      playerName,
+      userId: req.user.userId,
+      playerName: req.user.email,
       score,
       totalQuestions
-      // date is set automatically by the schema default
     })
     console.log('Score saved:', newScore)
     res.status(201).json(newScore)
