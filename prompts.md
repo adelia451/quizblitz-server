@@ -46,3 +46,10 @@ No AI used.
 
 ### Milestone 4 — Replace the In-Memory Array with MongoDB
 No AI used.
+
+### Milestone 5 — Test with Thunder Client
+**Promp**
+Why am I getting MongoDB connection failed: `querySrv ECONNREFUSED _mongodb._tcp`... when my connection string and IP whitelist are correct?
+
+**What I used**
+I switched from `mongodb+srv://` to a standard MongoDB connection string to avoid a DNS/SRV issue. 
