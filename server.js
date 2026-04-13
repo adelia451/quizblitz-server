@@ -14,7 +14,15 @@ const app = express()
 const PORT = 3000
 
 // Middleware
-app.use(cors())
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://abarba451.github.io'
+]
+
+app.use(cors({
+  origin: allowedOrigins
+}))
+
 app.use(express.json())
 
 // ROUTES ----------------------
@@ -155,7 +163,7 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('Connected to MongoDB')
     app.listen(process.env.PORT || 3000, () => {
-      console.log(`Server running at http://localhost:${process.env.PORT || 3000}`)
+      console.log(`Server running on port ${process.env.PORT || 3000}`)
     })
   })
   .catch((error) => {
