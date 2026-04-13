@@ -1,45 +1,40 @@
 # Part 4 - Back-End Quiz
 
 ## Q1 — Multiple Choice
-
-A student builds an Express route:
-
-app.post('/api/data', (req, res) => {
-  const { name } = req.body
-  res.json({ received: name })
-})
-When tested with Thunder Client sending { "name": "Alice" } as a JSON body, received is undefined. The route is registered correctly. What is the most likely cause?
-
-A) res.json() cannot serialize strings — it must use res.send()
-B) app.use(express.json()) middleware is missing or registered after the route
-C) POST routes cannot access req.body — only PUT routes support request bodies
-D) The property should be accessed as req.query.name for POST requests
+B) `app.use(express.json())` middleware is missing or registered after the route
 
 ## Q2 — Short Answer
-Explain the difference between 400 Bad Request, 401 Unauthorized, and 404 Not Found. For each status code, give one specific example from your QuizBlitz server where returning that code would be correct.
+`400 Bad Request` means the server cannot process the request because of the client's badly formed request, so things like syntax issues or incomplete requests. An example would be in the register route, when the email or password is missing it sends this error.
+
+`401 Unauthorized` means the server cannot fulfill the request because it doesn't have the authorization credential needed. An example would be in the login route. When the password doesn't match, `bcrypt.compare()` returns false and the server returns 401.
+
+`404 Not Found` means the server can't find the requested page. Something that might happen if someone requests `GET /api/users/exampleUser` and that user does not exist.
 
 ## Q3 — Code Analysis
-A student writes the following route:
+The student's code returns `{ message: 'done' }` immediately since it does not wait for the scores. This is because it does not use `async`/`await`. Since they don't use these, it does not wait for the database to respond and immediately runs `res.json({ message: 'done' })` before scores come back, which is why it doesn't return the score either. 
 
-app.get('/api/scores', (req, res) => {
-  Score.find().sort({ score: -1 }).limit(10)
-  res.json({ message: 'done' })
+This is the corrected code I used:
+```js
+// GET /api/scores — MILESTONE 4
+app.get('/api/scores', async (req, res) => {
+  try {
+    const scores = await Score.find()
+      .sort({ score: -1 })
+      .limit(10)
+    res.json(scores)
+  } catch (error) {
+    console.error('Error fetching scores:', error.message)
+    res.status(500).json({ error: 'Failed to fetch scores' })
+  }
 })
-The route always returns { message: 'done' } immediately and never returns any scores. Identify the problem and write the corrected version of the route.
+```
 
 ## Q4 — Multiple Choice
-Which of the following correctly describes the relationship between a Mongoose schema and a Mongoose model?
-
-A) A schema is a running instance of a model that connects to a specific MongoDB collection
 B) A schema defines the shape and validation rules for documents; a model is the class you use to query and save documents based on that schema
-C) A model and a schema are interchangeable terms for the same concept in Mongoose
-D) A schema stores the actual data; a model defines the structure
-Q5 — Design Question
-Your verifyToken middleware reads the token from the Authorization header and attaches the decoded payload to req.user. A classmate suggests storing the JWT in a cookie instead of having the client send it in a header, arguing it is simpler.
-
-Give one genuine advantage of the cookie approach and one genuine advantage of the Authorization header approach. Then state which approach is more appropriate for a mobile-accessible game like QuizBlitz and explain why in two to three sentences.
 
 ## Q5 — Design Question
-Your verifyToken middleware reads the token from the Authorization header and attaches the decoded payload to req.user. A classmate suggests storing the JWT in a cookie instead of having the client send it in a header, arguing it is simpler.
+An advantage of using cookies is that the browser sends the JWT automatically on every request, so we wouldn't have to add it to our code.
 
-Give one genuine advantage of the cookie approach and one genuine advantage of the Authorization header approach. Then state which approach is more appropriate for a mobile-accessible game like QuizBlitz and explain why in two to three sentences.
+An advantage of the header approach is that it would work everywhere, including mobile apps, since cookies are browser-specific. 
+
+The Authorization header approach is more appropriate for QuizBlitz because the app is mobile-accessible and cookies behave differently across mobile browsers. Since the Vue store already manually sends the token in `submitScore()`, the header approach works consistently across all platforms.
