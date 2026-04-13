@@ -16,7 +16,7 @@ const PORT = 3000
 // Middleware
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://abarba451.github.io'
+  'https://adelia451.github.io'
 ]
 
 app.use(cors({
